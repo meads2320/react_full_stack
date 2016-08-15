@@ -1,0 +1,17 @@
+{
+  "name": "react_fs",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "HCI01\\meads <meads@hcpci.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/meads2320/react_full_stack",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
