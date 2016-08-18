@@ -21,5 +21,15 @@ module.exports = {
                 error : error
             });
         });
+    },
+    delete: function(url) { 
+        return new Promise(function(success, error) { 
+            $.ajax({
+                url : url,
+                type : "DELETE", 
+                success: success,
+                error : error
+            });
+        });
     }
 }

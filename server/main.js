@@ -11,4 +11,6 @@ app.get('/',function(req,res){
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
+require('./database.js');
+
 require('./routes/items.js')(app);

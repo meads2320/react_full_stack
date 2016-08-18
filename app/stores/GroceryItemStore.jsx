@@ -29,7 +29,7 @@ function GroceryItemStore() {
     function addGroceryItem(item) {
     
          resthelper.post('api/addItem', item).then(function(data) { 
-            items.push(item);
+            items.push(data);
             triggerListeners();
         });
     }
@@ -45,11 +45,10 @@ function GroceryItemStore() {
             }
         });
 
-         resthelper.post('api/deleteItem', item).then(function(data) { 
-        
+         resthelper.delete('api/deleteItem/' + item._id);
+
             items.splice(index, 1);
             triggerListeners();
-         });
     }
 
      function setPurchaseStateGroceryItem(item) {

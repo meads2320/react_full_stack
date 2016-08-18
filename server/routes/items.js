@@ -1,65 +1,50 @@
+var GroceryItem = require('./../models/GroceryItem');
+
 module.exports = function(app) {
-       
-       var items = [
-        { name: "Ice Cream" },
-        { name: "Water" },
-        { name: "Chips", purchased: true },
-        { name: "Soda" },
-        { name: "Waffles" },
-        { name: "Wine" }
-    ];
 
     app.route('/api/getItems')
         .get(function(req,res) { 
-            res.send(items)
-        })
-
+            GroceryItem.find(function(error,doc) { 
+                 res.send(doc)
+            });
+           
+        });
 
     app.route('/api/addItem')
         .post(function(req,res) { 
             var item = req.body;
-            items.push(item);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.write(JSON.stringify({ status: 'OK' }));
-            res.end();
+            var groceryItem = new GroceryItem(item);
+        
+            groceryItem.save(function(error,doc) { 
+
+                res.status(200).send(doc);
+            });
+
+         
         });
 
     app.route('/api/updateItem')
         .post(function(req,res) { 
-            var item = req.body;
-            var index;
 
-            items.filter(function(_item, _index) { 
-                if(_item.name === item.name) {
-                    index = _index;
-                    return;
+            GroceryItem.findOne({ 
+                _id: req.body._id
+            }, function(error, doc) { 
+                for (var key in req.body) {
+                    doc[key] = req.body[key];
                 }
+                doc.save()
+                res.status(200).send();
             });
-
-            items[index] = item;
-
-             res.writeHead(200, { 'Content-Type': 'application/json' });
-                 res.write(JSON.stringify({ status: 'OK' }));
-            res.end();
         });
 
-    app.route('/api/deleteItem')
-        .post(function(req,res) { 
-            var item = req.body;
-            var index;
-        
-            items.filter(function(_item, _index) { 
-                if(_item.name === item.name) {
-                    index = _index;
-                    return;
-                }
+    app.route('/api/deleteItem/:id')
+        .delete(function(req,res) { 
+            GroceryItem.findOne({ 
+                _id: req.params.id
+            }).remove(function(x) { 
+                console.log("removed", x);
             });
 
-             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.write(JSON.stringify({ status: 'OK' }));
-            res.end();
-
-            items.splice(index, 1);
         });
 
    }
