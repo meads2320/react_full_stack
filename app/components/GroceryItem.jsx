@@ -6,15 +6,26 @@ module.exports = React.createClass({
         e.preventDefault();
         action.delete(this.props.item);
     },
+    purchase: function(e) { 
+        e.preventDefault();
+        action.purchase(this.props.item);
+    },
     render:function(){
         return (
 
-            <li className={this.props.item.purchased ? "strikethrough" : null}>
-                <div>{this.props.item.name}</div>
+            <div className="grocery-item row">
+                <div className="six columns">
+                    <h5 className={this.props.item.purchased ? "strikethrough" : null}>{this.props.item.name}</h5>
+                </div>
                 <form className="three columns" onSubmit={this.delete}>
-                    <button>&times;</button>
+                    <button className="button-danger">&times;</button>
                 </form>
-            </li>
+                <form className="three columns" onSubmit={this.purchase}>
+                    <button className={this.props.item.purchased ? "button-warning" : "button-primary"}>
+                    {this.props.item.purchased ? "Return Item" : "Purchase Item"}</button>
+                </form>
+            </div>
+            
         )
     }
 })

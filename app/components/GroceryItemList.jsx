@@ -7,14 +7,12 @@ module.exports = React.createClass({
         return (
             <div>
                 <h1>Grocery Listify </h1>
-                <ul>
                 <div>{this.props.items.map((item, index) => {
                         return (
                             <GroceryItem item={item} key={"item" + index} />
                             )
                 })}</div>
-                </ul>
-                    <GroceryListAddItem />
+                <GroceryListAddItem />
             </div>
         )
     }

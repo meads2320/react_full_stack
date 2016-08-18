@@ -47,6 +47,21 @@ function GroceryItemStore() {
         triggerListeners();
     }
 
+     function setPurchaseStateGroceryItem(item) {
+        
+        var index;
+        
+        items.filter(function(_item, _index) { 
+            if(_item.name === item.name) {
+                index = _index;
+                return;
+            }
+        });
+
+        items[index].purchased = !items[index].purchased
+        triggerListeners();
+    }
+
     dispatcher.register(function(event) { 
         var split = event.type.split(':');
         if(split[0] === 'grocery-item') {
@@ -57,6 +72,9 @@ function GroceryItemStore() {
                  case 'delete':
                     deleteGroceryItem(event.payload); 
                 break;
+                case 'purchase' : 
+                      setPurchaseStateGroceryItem(event.payload); 
+                      break;
                 
             }
         }

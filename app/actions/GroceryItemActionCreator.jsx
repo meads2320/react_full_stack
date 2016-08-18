@@ -14,5 +14,12 @@ module.exports = {
                 payload : item,
                 type : "grocery-item:delete"
             });
+    },
+     purchase: function(item) { 
+        dispatcher.dispatch(
+            { 
+                payload : item,
+                type : "grocery-item:purchase"
+            });
     }
 };
