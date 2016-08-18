@@ -1,4 +1,3 @@
-var React = require('React');
 var guid = require('guid');
 
 var listeners = {};

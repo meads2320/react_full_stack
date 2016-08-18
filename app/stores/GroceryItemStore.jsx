@@ -29,7 +29,8 @@ function GroceryItemStore() {
     function addGroceryItem(item) {
     
          resthelper.post('api/addItem', item).then(function(data) { 
-            items.push(data);
+             item._id  = data
+            items.push(item);
             triggerListeners();
         });
     }
