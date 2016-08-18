@@ -17,13 +17,16 @@ module.exports = React.createClass({
                 <div className="six columns">
                     <h5 className={this.props.item.purchased ? "strikethrough" : null}>{this.props.item.name}</h5>
                 </div>
-                <form className="three columns" onSubmit={this.delete}>
-                    <button className="button-danger">&times;</button>
-                </form>
+                
                 <form className="three columns" onSubmit={this.purchase}>
                     <button className={this.props.item.purchased ? "button-warning" : "button-primary"}>
                     {this.props.item.purchased ? "Return Item" : "Purchase Item"}</button>
                 </form>
+
+                <form className="three columns" onSubmit={this.delete}>
+                    <button className="button-danger">&times;</button>
+                </form>
+                
             </div>
             
         )
