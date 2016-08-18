@@ -23,12 +23,15 @@ function GroceryItemStore() {
     function triggerListeners() { 
         listeners.forEach(function(listener) { 
             listener(items);
-        })
+        });
     }
 
     function addGroceryItem(item) {
-        items.push(item);
-        triggerListeners();
+    
+         resthelper.post('api/addItem', item).then(function(data) { 
+            items.push(item);
+            triggerListeners();
+        });
     }
 
       function deleteGroceryItem(item) {
@@ -42,8 +45,11 @@ function GroceryItemStore() {
             }
         });
 
-        items.splice(index, 1);
-        triggerListeners();
+         resthelper.post('api/deleteItem', item).then(function(data) { 
+        
+            items.splice(index, 1);
+            triggerListeners();
+         });
     }
 
      function setPurchaseStateGroceryItem(item) {
@@ -58,7 +64,13 @@ function GroceryItemStore() {
         });
 
         items[index].purchased = !items[index].purchased
-        triggerListeners();
+
+        var updatedItem = items[index];
+
+         resthelper.post('api/updateItem', updatedItem).then(function(data) { 
+
+            triggerListeners();
+           });
     }
 
     dispatcher.register(function(event) { 
